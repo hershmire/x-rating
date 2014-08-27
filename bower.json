@@ -1,13 +1,29 @@
 {
   "name": "x-rating",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "keywords": [
     "seed",
     "polymer",
-    "web-components"
+    "web-components",
+    "star-rating",
+    "rating"
   ],
   "main": "x-rating.html",
   "dependencies": {
-    "polymer": "Polymer/polymer#~0.3.5"
-  }
+    "polymer": "~0.3.5"
+  },
+  "homepage": "https://github.com/hershmire/x-rating",
+  "authors": [
+    "Eddie Leffler"
+  ],
+  "description": "A custom (star) rating UI polymer element.",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "../",
+    "test",
+    "tests"
+  ]
 }
