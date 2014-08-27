@@ -1,0 +1,33 @@
+:host {
+  display: inline-block;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+
+:host(:not([readonly])) .RateIcon:hover {
+  cursor: pointer;
+}
+
+.Rate {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.RateIcon {
+  position: relative;
+}
+
+.RateIcon-icon {
+  box-sizing: border-box;
+}
+
+.RateIcon-selected {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+}

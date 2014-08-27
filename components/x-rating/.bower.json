@@ -1,0 +1,23 @@
+{
+  "name": "x-rating",
+  "keywords": [
+    "seed",
+    "polymer",
+    "web-components"
+  ],
+  "main": "x-rating.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#~0.3.5"
+  },
+  "homepage": "https://github.com/hershmire/x-rating",
+  "_release": "bad9bcb09c",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "bad9bcb09c0ae3f34fc6d34123d4fad126f5cf12"
+  },
+  "_source": "git://github.com/hershmire/x-rating.git",
+  "_target": "master",
+  "_originalSource": "hershmire/x-rating",
+  "_direct": true
+}

@@ -1,0 +1,170 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+`x-rating` is a 0 to "x" rating UI element where "x" can be any positive integer. By default, it's a five-star clickable rating element.
+
+i.e. ★★★☆☆
+
+##### Default five star rating
+
+    <x-rating></x-rating>
+
+##### Change total amount of rating items
+
+    <x-rating count="7"></x-rating>
+
+##### Make read-only
+
+    <x-rating readonly></x-rating>
+
+
+##### Set an inital value
+
+    <x-rating value="4.3"></x-rating>
+
+@element x-rating
+@blurb `x-rating` is a 0 to "x" rating UI element where "x is any positive integer. By default, it's a five-star rating element.
+@status alpha
+@homepage http://hershmire.github.io/x-rating
+-->
+<polymer-element name="x-rating" attributes="count value readonly">
+
+  <template>
+
+    <link rel="stylesheet" href="x-rating.css" />
+
+    <div id="rate" class="Rate">
+      <template repeat="{{icon in icons}}">
+        <span class="RateIcon" on-tap="{{tapAction}}">
+          <span class="RateIcon-icon RateIcon-base">☆</span>
+          <span class="RateIcon-icon RateIcon-selected" style="width: 0;">★</span>
+        </span>
+      </template>
+    </div>
+
+  </template>
+
+  <script>
+    Polymer('x-rating', {
+      /**
+       * Fired when the rating value has been changed.
+       *
+       * @event change
+      */
+
+
+      publish: {
+        /**
+         * Value of the rating. Supports floating point numbers for fractional ratings.
+         *
+         * @attribute value
+         * @type number
+         * @default 0
+         */
+        value: {
+          value: 0,
+          reflect: true
+        }
+      },
+
+      /**
+       * Number of rating items (stars) to display
+       *
+       * @attribute count
+       * @type number
+       * @default 5
+       */
+      count : 5,
+
+      /**
+       * If true, rating display is read only
+       *
+       * @attribute readonly
+       * @type boolean
+       * @default false
+       */
+      readonly : false,
+
+      created: function() {
+        this.countChanged();
+      },
+
+      valueChanged: function() {
+        this.update();
+        this.fire('change');
+      },
+
+      countChanged: function() {
+        this.icons = [];
+        for (var i = 0; i < this.count; i++) {
+          this.icons.push(i);
+        }
+      },
+
+      update: function() {
+        var split = this.value.toString().split('.');
+        var integer = parseInt(split[0]);
+        var percent = Math.round(parseFloat('.' + split[1]) * 100 || 0);
+        var i;
+        var ilen = this.count;
+        var icons = this.$.rate.querySelectorAll('.RateIcon');
+        var icon;
+
+        for (i = 0; i < ilen; i++) {
+          icon = icons[i].querySelector('.RateIcon-selected');
+          if (i < integer) {
+            icon.style.width = 'auto';
+          }
+          else if (i === integer) {
+            icon.style.width = percent + '%';
+          }
+          else {
+            icon.style.width = '0%';
+          }
+        }
+      },
+
+      tapAction: function(event, detail, sender) {
+        if (this.readonly) {
+          return;
+        }
+        var index = sender.templateInstance.model.icon + 1;
+        this.setValue(index);
+      },
+
+      setValue: function(newValue) {
+        if (newValue < 0 || newValue > this.count) {
+          return false;
+        }
+        return this.value = newValue;
+      },
+
+      /**
+       * Filter that creates array for `<template>` to iterate over
+       */
+      iterateTemplate: function(value) {
+        var i;
+        var rateIcons = [];
+        for (i = 0; i < value; i++) {
+          rateIcons.push(i + 1);
+        }
+        return rateIcons;
+      },
+
+      /**
+       * Filter that adjusts a number decimal to a fixed place or
+       * removes decimal altogether if decimal only has trailing zeros.
+       */
+      toFixed: {
+        toDOM: function(value) {
+          // `* 1` forces value to not have trailing 0 in decimal point
+          return (this.value.toFixed(1) * 1).toString();
+        },
+        toModel: function(value) {
+          return value;
+        }
+      }
+    });
+  </script>
+
+</polymer-element>
