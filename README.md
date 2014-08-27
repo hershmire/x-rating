@@ -1,5 +1,4 @@
-x-rating
-================
+# x-rating
 
 See the [component page](http://hershmire.github.io/x-rating) for more information.
 
